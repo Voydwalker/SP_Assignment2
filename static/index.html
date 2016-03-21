@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $("#login").click(function(){
+            $.ajax({
+                url: "login",
+                type: "POST",
+                data: {"User":$('#user').val(), "Password":$('#pass').val()},
+                success: function(data){
+                    //console.log("success sent "+data);
+                    confirm();
+                }
+            });
+        });
+    });
+    function confirm(){
+        $.ajax({
+            url: "login",
+            type: "GET",
+            data: "text",
+            success: function(data){
+                //console.log("success confirm "+data);
+                window.location.href='/user';
+            },
+            error: function(xhr, textStatus, errorThrown){
+                alert("login error");
+            }
+        });
+    };
+
+    </script>
+    <style>
+        html,body {
+        height: 100%;
+        }
+    </style>
+</head>
+<body>
+User: <input id="user" type="text" placeholder="User" autocomplete="off"><br>
+Password: <input id="pass" type="text" placeholder="Password" autocomplete="off"><br>
+<button id="login">Login</button><br>
+<button onclick="window.location.href='/register';">Register</button>
+</body>
+</html>
